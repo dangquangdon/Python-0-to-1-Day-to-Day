@@ -7,7 +7,9 @@
 - And you do it using programming languages
 
 ## Programming languages
-![languageslevels.gif](attachment:languageslevels.gif)
+![languageslevels.gif](
+        Python-0-to-1-Day-to-Day/Day1/computer-languages.png
+      )
 ![computer-languages.png](attachment:computer-languages.png)
 - Programming languages are categorised in different levels. The closer it is to machine language, the lower level it is, and vice versa.
 - Machine language is binary language, which is only 0s and 1s. Machine does not understand Java, Python, Ruby,... or whatever programming language that you've heard of
