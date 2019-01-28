@@ -7,10 +7,8 @@
 - And you do it using programming languages
 
 ## Programming languages
-![languageslevels.gif](
-        Python-0-to-1-Day-to-Day/Day1/computer-languages.png
-      )
-![computer-languages.png](attachment:computer-languages.png)
+![languageslevels.gif](https://github.com/dangquangdon/Python-0-to-1-Day-to-Day/blob/master/Day1/computer-languages.png)
+![computer-languages.png](https://github.com/dangquangdon/Python-0-to-1-Day-to-Day/blob/master/Day1/languageslevels.gif)
 - Programming languages are categorised in different levels. The closer it is to machine language, the lower level it is, and vice versa.
 - Machine language is binary language, which is only 0s and 1s. Machine does not understand Java, Python, Ruby,... or whatever programming language that you've heard of
 - As shown in the pictures, Python, as well as other famous programming languages that you have heard of are mostly high-level, which mean it will need to be compiled and interpreted into Machine code of 0s and 1s  
