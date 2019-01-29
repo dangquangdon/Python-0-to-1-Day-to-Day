@@ -1,7 +1,7 @@
 ## Exercise
 
 
-**Write a small script to show passwords or hints for passwords of different accounts from different website you're users.**  
+**Write a small script to show passwords or hints for passwords of different accounts from different website you're using.**  
 
 How it should go:
 
