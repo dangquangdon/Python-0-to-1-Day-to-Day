@@ -55,6 +55,7 @@
     - Modify/add game logic when player choose magic
     - For the enemy, let's just hard code the Attack option for it at this point. In other word, enemy only use Attack, even though it has Magic but it uses only Attack
     - After each round, check hp and mp, if mp is <= 0, set mp value to 0  
-TO WRITTE:  
+    
+## TO WRITTE:  
 - Hard  
 - Extreme
