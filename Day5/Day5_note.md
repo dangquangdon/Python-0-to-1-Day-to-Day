@@ -99,6 +99,7 @@ In this example code, we have two class
 - Once you are inside that folder, run ```virtualenv venv```. Please note that, ```venv``` is , by convention, the name of the virtual environment folder, you can name it something else, for example ```virtualenv project_env``` or ```virtualenv my_virtual_env```
 
 - After it finish runing virtualenv, you will see a new folder is created inside your project folder.
+
 **For MacOs and Linux**
 - run ```. venv/bin/activate``` or more friendly ```source venv/bin/activate```
 
