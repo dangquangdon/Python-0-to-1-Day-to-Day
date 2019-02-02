@@ -322,7 +322,8 @@ class PythonProgrammer2:
 - There are 3 types of methods:  
     - Regular methods
     - Static methods
-    - Class methods
+    - Class methods . 
+    
 **Regular methods**
 - We have tried using and creating regular methods in the above examples. Basically, **regular methods will automatically take the instance as a parameter/argument - ```self``` keword**
 
