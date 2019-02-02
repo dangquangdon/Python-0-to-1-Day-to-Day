@@ -11,12 +11,12 @@ class Person:
 
     # Generate the amount of damage randomly in range of highest attack and lowest attack
     def generate_atk_damage(self):
-        # This function should return a damage value
+        # This method should return a damage value
         # The value is a random number between atk_low and atk_high
 
     # When player takes damage, HP will be decreased
     def take_damage(self, dmg):
-        # This function should return a new hp value after taken damage
+        # This method should return a new hp value after taken damage
         # new hp value is the current hp minus the dmg
 
     def get_stats(self):
