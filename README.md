@@ -13,5 +13,6 @@
 - [RealPython](https://realpython.com/)
 - [Official Python Documentations](https://docs.python.org/3/tutorial/index.html)
 
+- [Common git commands](https://rubygarage.org/blog/most-basic-git-commands-with-examples)
 TODO:
     - More updates coming
