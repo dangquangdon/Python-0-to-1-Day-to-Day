@@ -1,0 +1,11 @@
+html,body{
+  box-sizing: border-box;
+}
+
+
+.box{
+  border-radius: 5px;
+  -webkit-box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.75);
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.75);
+}

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="container">
+    <h1>This a home page</h1>
+    {% if posts %}
+      {% for post in posts %}
+        <div class="box p-3 bg-primary my-2 text-white">
+          <h1>{{ post.title }}</h1>
+          <p>{{ post.author }}</p>
+          <p>{{ post.content }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No posts</p>
+    {% endif %}
+  </div>
+{% endblock content %}
