@@ -2,6 +2,10 @@
 
 **Please find the examples in the .md files in each day folder**
 
+## For the Flask website project:
+- The Flask website project is divided into many parts, please check other branches.
+- Each branch is named accordingly to the steps we're going through the project.
+
 ## Basic command line
 
 - [For command prompt in Windows](https://www.digitalcitizen.life/command-prompt-how-use-basic-commands)
