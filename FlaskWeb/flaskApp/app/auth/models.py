@@ -9,7 +9,7 @@ class User(db.Model):
     image_file = db.Column(db.String(20),
                            nullable=False,
                            default='default.jpg')
-    passwor = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(60), nullable=False)
 
     posts = db.relationship('Post', backref='author', lazy=True)
 

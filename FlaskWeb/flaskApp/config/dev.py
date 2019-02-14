@@ -1,5 +1,7 @@
 import os
 
+
+# add the export below to .bashrc if you're on Mac or Linux
 # export SECRET_KEY="201ee3b4c2d3bae27fc157a4eb9e9561"
 
 DEBUG = True
