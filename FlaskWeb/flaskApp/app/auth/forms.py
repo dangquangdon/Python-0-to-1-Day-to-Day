@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from app.auth.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField("Username", validators=[
@@ -18,6 +19,21 @@ class RegistrationForm(FlaskForm):
                                      DataRequired(),
                                      EqualTo('password')])
     submit = SubmitField('Sign Up')
+
+
+        # Validated usernames and emails
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+
+        if user:
+          raise ValidationError('The username has been taken. Please choose another one!')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+
+        if user:
+          raise ValidationError("This email was used, please login or reset password if you've forgoten")
+
 
 
 class LoginForm(FlaskForm):

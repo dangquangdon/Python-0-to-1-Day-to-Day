@@ -65,7 +65,7 @@ user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 6. Now we need to create the database file, so in terminal/command prompt,at this app folder, run `python shell`
 ```python
 >>> from run import db
->>> db.creat_all()
+>>> db.create_all()
 # If there is no error, means our database has been created in the project folder
 # Now import the models that we've created, and create some instances
 >>> from run import User, Post
@@ -99,7 +99,7 @@ user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 >>> post.user_id
 >>> post.author
 # to delete all/drop all tables
->>> db.drop()
+>>> db.drop_all()
 ```
 
 

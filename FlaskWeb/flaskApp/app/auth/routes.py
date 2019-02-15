@@ -3,10 +3,17 @@ from flask import Flask, render_template, url_for, flash, redirect
 from app.auth.forms import LoginForm, RegistrationForm
 from app import bcrypt, db
 from app.auth.models import User
+from flask_login import login_user, current_user
 
 
 @auth.route("/register", methods=["GET", "POST"])
 def register():
+    # Check if the user is already logged in
+    print(current_user.is_authenticated)
+    if current_user.is_authenticated:
+        return redirect(url_for('posts.home'))
+
+    # if not logged in
     form = RegistrationForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -23,11 +30,15 @@ def register():
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('posts.home'))
+
     form = LoginForm()
     if form.validate_on_submit():
-        admin_email = 'john@doe.com'
-        admin_password = 'password'
-        if form.email.data == admin_email and form.password.data == admin_password:
+        user = User.query.filter_by(email=form.email.data).first()
+        input_password = form.password.data
+        if user and bcrypt.check_password_hash(user.password, input_password):
+            login_user(user, remember=form.remember.data)
             flash('Log in successfully', 'success')
             return redirect(url_for('posts.home'))
         else:

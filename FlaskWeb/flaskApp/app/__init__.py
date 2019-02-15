@@ -2,9 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
+login_manager = LoginManager()
 
 
 def create_app(config_type):
@@ -15,6 +17,7 @@ def create_app(config_type):
 
     db.init_app(app)
     bcrypt.init_app(app)
+    login_manager.init_app(app)
 
     # Register routes
     from app.auth import auth
