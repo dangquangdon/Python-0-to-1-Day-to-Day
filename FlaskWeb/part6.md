@@ -245,3 +245,12 @@ def login():
     return redirect(next_page)
   else:
     return redirect(url_for('posts.home'))
+```
+
+14. One last modification in this part. If you've notice, in all of our `<a>` tags, we put the static url links there. Normally it won't be a big problem, however, in case we want to restructure or rename the urls, we have to go to all of the `<a>` tags to change the links. To avoid that, instead of putting static url, we will use the function names that we defined below the `@app.route()`. And we will user `url_for` in Jinja2 syntax. For example
+
+```html
+<li class="nav-item">
+    <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
+</li>
+```
