@@ -1,9 +1,9 @@
 from app.auth import auth
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect, request
 from app.auth.forms import LoginForm, RegistrationForm
 from app import bcrypt, db
 from app.auth.models import User
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 @auth.route("/register", methods=["GET", "POST"])
@@ -40,8 +40,22 @@ def login():
         if user and bcrypt.check_password_hash(user.password, input_password):
             login_user(user, remember=form.remember.data)
             flash('Log in successfully', 'success')
-            return redirect(url_for('posts.home'))
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect(url_for('posts.home'))
         else:
             flash('Log in failed, check credentials again', 'danger')
 
     return render_template("login.html", form=form)
+
+@auth.route('/logout')
+def logout():
+  logout_user()
+  return redirect(url_for('posts.home'))
+
+@auth.route('/account')
+@login_required
+def account():
+    return render_template('account.html')

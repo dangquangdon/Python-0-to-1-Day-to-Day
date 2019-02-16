@@ -134,7 +134,7 @@ from flask_login import login_user, current_user
 
 def register():
   if current_user.is_authenticated:
-    redirect(url_for('posts.home'))
+    return redirect(url_for('posts.home'))
 
 
 
@@ -143,7 +143,105 @@ def register():
 
 def login():
   if current_user.is_authenticated:
-    redirect(url_for('posts.home'))
+    return redirect(url_for('posts.home'))
 
 ```
 
+9. Next step is to make a logout route to let user logout. So in our `app.auth.route`
+
+```python
+from flask_login import logout_user
+
+@app.route('/logout')
+def logout():
+  logout_user()
+  return redirect(url_for('posts.home'))
+```
+`logout_user` function from `flask_login` will handle the logging out of the user.
+
+10. Now we have to add the logout button somewhere on the navbar so that user can click to.
+
+Usually, after user has logged in, we don't need to display the `Login` and `Register` buttons anymore, but instead, we will show the `Logout` button. To do so, we will need to put Jinja2's if statement in the `layout.html`
+
+```html
+<nav>
+...
+  <div id="mainNav" class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+    ...
+
+      {% if current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/account">Account</a>
+        </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Register</a>
+      </li>
+      {% endif %}
+    </ul>
+
+  </div>
+</nav>
+```
+
+11. We can create for now a `html` file for the `Account` button and a route for it.
+
+```html
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="container">
+    <h1>Account Page</h1>
+    <h2>{{current_user.username}}</h2>
+  </div>
+{% endblock content %}
+```
+
+12. Now if we log in and go to `Account` page, we can see the current user's username. If we logout, we won't see `Account` button anymore, however, if we type `/account` to the end of the url, we can still access the page, but there is no username displayed, because no user has logged in.
+
+What we want to do is to redirect users if they try to access this page without loging in to the login page. In order to do so, we will import a decorator from `flask_login` call `login_required`. In the `app.auth.route`
+
+```python
+from flask_login import login_required
+
+@app.route('/account')
+@login_required
+def account():
+  ...
+```
+
+To let `flask_login` know that we want it to redirect users to `login` page, we have to set `login_view` in our `app/__init__.py`
+
+```python
+...
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login' #function name of the login route
+login_manager.login_message_category = 'warning' # show the category color of the warning message
+```
+
+So now, if someone tries to access this protected route `/account` it will redirect him/her to login page with a warning message.
+
+13. For more user friendly, we want to redirect users back to their starting page. Right now, when they log in, they will be redirected to home page, what we are trying to do is that if they try to access protected routes such as `account` route, without logging in, they will be redirected to `login` page, then after they input credentials to log in, we want to redirect them back to `account` page, where they wanted to be at the first place. Let's do that !
+
+- First, after they get redirected to the login page, look at the url, it will have this string `?next=%2Faccount` after the `/login` which indicate that the next page after logging in should be `account`.
+
+- To do so, let's go to the `login` route we will need to import `request` from flask to access the parameter from url
+
+```python
+from flask import request
+
+...
+def login():
+  ...
+  login_user(user, remember=form.remember.data)
+  next_page = request.args.get('next')
+  if next_page:
+    return redirect(next_page)
+  else:
+    return redirect(url_for('posts.home'))
