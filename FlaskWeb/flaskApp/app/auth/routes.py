@@ -1,10 +1,10 @@
 from app.auth import auth
 from flask import Flask, render_template, url_for, flash, redirect, request
-from app.auth.forms import LoginForm, RegistrationForm
+from app.auth.forms import LoginForm, RegistrationForm, UpdateAccount
 from app import bcrypt, db
 from app.auth.models import User
 from flask_login import login_user, current_user, logout_user, login_required
-
+from app.auth.utils import save_picture
 
 @auth.route("/register", methods=["GET", "POST"])
 def register():
@@ -24,7 +24,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash(f"Account created for {username} !", 'success')
-        return redirect(url_for('posts.home'))
+        return redirect(url_for('posts.login'))
 
     return render_template("register.html", form=form)
 
@@ -55,7 +55,23 @@ def logout():
   logout_user()
   return redirect(url_for('posts.home'))
 
-@auth.route('/account')
+@auth.route('/account', methods=['GET','POST'])
 @login_required
 def account():
-    return render_template('account.html')
+    form = UpdateAccount()
+    if form.validate_on_submit():
+        pic_data = form.picture.data
+        if pic_data:
+            picture_name = save_picture(pic_data)
+            current_user.image_file = picture_name
+
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Account has been updated!", 'success')
+        return redirect(url_for('auth.account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    return render_template('account.html', form=form)
