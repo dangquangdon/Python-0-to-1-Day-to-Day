@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-4 mx-auto pt-3">
       <div class="text-center">
-        <h1>Log In</h1>
+        <h1>Request Reset Password</h1>
       </div>
       <form method="POST">
         <!-- This hidden form is to protect us from CSRF attack -->
@@ -22,34 +22,12 @@
           {% endif %}
         </div>
         <div class="form-group">
-          {{ form.password.label(class="form-control-label") }}
-          {% if form.password.errors %}
-            {{ form.password(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for err in form.password.errors %}
-                <span>{{err}}</span>
-              {% endfor %}
-            </div>
-          {% else %}
-            {{ form.password(class="form-control form-control-lg") }}
-          {% endif %}
-        </div>
-        <div class="form-check my-2">
-          {{ form.remember(class="form-check-input") }}
-          {{ form.remember.label(class="form-check-label") }}
-        </div>
-        <div class="form-group">
           {{ form.submit(class="btn btn-outline-info") }}
         </div>
       </form>
       <div class="border-top pt-2">
         <small class="text-muted">
         Haven't had an account? <a href="{{url_for('auth.register')}}">Register here</a>
-        </small>
-      </div>
-      <div class="border-top pt-2">
-        <small class="text-muted">
-        Forget your password? <a href="{{url_for('auth.reset_password')}}">Reset here</a>
         </small>
       </div>
     </div>

@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
   <div class="container">
+    <h1>Posts by {{user.username}}</h1>
+    <p>Total posts {{posts.total}}</p>
     {% if posts %}
       {% for post in posts.items %}
         <div class="row box p-3 bg-primary my-2 text-white">
@@ -24,7 +26,7 @@
       <!-- PAGINATION -->
       {% for page in posts.iter_pages() %}
         {% if page %}
-          <a href="{{url_for('posts.home', page=page)}}" class="btn btn-outline-primary">{{page}}</a>
+          <a href="{{url_for('auth.user_posts',username=user.username, page=page)}}" class="btn btn-outline-primary">{{page}}</a>
         {% else %}
           ...
         {% endif %}

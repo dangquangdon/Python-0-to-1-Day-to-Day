@@ -5,12 +5,15 @@ from app.posts.forms import PostForm
 from app.posts.models import Post
 from app import db
 
+# HOME
 @posts.route("/")
 def home():
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=1)
 
     return render_template("home.html", posts=posts)
 
+# ADD POST
 @posts.route('/post/add-new', methods=['GET','POST'])
 @login_required
 def add_post():
@@ -28,12 +31,13 @@ def add_post():
         return redirect(url_for('posts.home'))
     return render_template('add_post.html', form=form, form_title="Add a new post")
 
-
+# VIEW A SINGLE POST
 @posts.route('/post/<int:post_id>')
 def single_post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', post=post)
 
+# EDIT A POST
 @posts.route('/post/<int:post_id>/update', methods=['GET','POST'])
 @login_required
 def edit_post(post_id):
@@ -60,6 +64,7 @@ def edit_post(post_id):
     return render_template('add_post.html', form=form, form_title="Edit Post")
 
 
+# DELETE A POST
 @posts.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):

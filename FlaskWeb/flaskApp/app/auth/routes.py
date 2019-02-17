@@ -1,11 +1,16 @@
 from app.auth import auth
 from flask import Flask, render_template, url_for, flash, redirect, request
-from app.auth.forms import LoginForm, RegistrationForm, UpdateAccount
+from app.auth.forms import (LoginForm, RegistrationForm,
+                            UpdateAccount, RequestForm,
+                            ResetPasswordForm)
 from app import bcrypt, db
 from app.auth.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from app.auth.utils import save_picture
+from app.posts.models import Post
+from app.auth.utils import send_reset_email
 
+# REGISTER
 @auth.route("/register", methods=["GET", "POST"])
 def register():
     # Check if the user is already logged in
@@ -28,6 +33,7 @@ def register():
 
     return render_template("register.html", form=form)
 
+# LOGIN
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -55,6 +61,8 @@ def logout():
   logout_user()
   return redirect(url_for('posts.home'))
 
+
+# ACCOUNT PAGE
 @auth.route('/account', methods=['GET','POST'])
 @login_required
 def account():
@@ -75,3 +83,53 @@ def account():
         form.email.data = current_user.email
 
     return render_template('account.html', form=form)
+
+
+# USER'S POSTS
+@auth.route("/user/<string:username>")
+def user_posts(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    # User backslash to break the code into lines
+    posts = Post.query.filter_by(author=user)\
+                    .order_by(Post.date_posted.desc())\
+                    .paginate(page=page, per_page=1)
+
+    return render_template("user_post.html", posts=posts, user=user)
+
+# RESET PASSWORD
+@auth.route('/reset-password', methods=['GET','POST'])
+def reset_password():
+    if current_user.is_authenticated:
+        return redirect(url_for('posts.home'))
+
+    form = RequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email = form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been send to your email, please follow the instruction', 'info')
+        return redirect(url_for('auth.login'))
+    return render_template('reset_request.html', form=form)
+
+# RESET TOKEN
+@auth.route('/reset-password/<token>', methods=['GET','POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('posts.home'))
+
+    user = User.verify_reset_token(token)
+
+    if not user:
+        flash('Request has been expired, make a new request now', 'warning')
+        return redirect(url_for('auth.reset_password'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+
+        user.password = hashed_password
+        db.session.commit()
+        flash(f"Password has been reset for {user.username} !", 'success')
+        return redirect(url_for('auth.login'))
+
+    return render_template('reset_token.html', form=form)
