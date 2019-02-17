@@ -5,6 +5,7 @@ from datetime import datetime
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
+    subtitle = db.Column(db.String(120), nullable=False)
     date_posted = db.Column(db.DateTime,
                             nullable=False,
                             default=datetime.utcnow)

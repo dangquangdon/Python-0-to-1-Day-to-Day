@@ -1,13 +1,21 @@
 {% extends 'layout.html' %}
 {% block content %}
   <div class="container">
-    <h1>This a home page</h1>
     {% if posts %}
       {% for post in posts %}
-        <div class="box p-3 bg-primary my-2 text-white">
-          <h1>{{ post.title }}</h1>
-          <p>{{ post.author }}</p>
-          <p>{{ post.content }}</p>
+        <div class="row box p-3 bg-primary my-2 text-white">
+          <div class="col-sm-8">
+            <h1><a href="{{url_for('posts.single_post', post_id=post.id)}}" class="text-white">
+              {{ post.title }}
+            </a>
+            </h1>
+            <h3>{{post.subtitle}}</h3>
+            <p>{{ post.author.username }}</p>
+            <small>{{post.date_posted.strftime('%Y-%m-%d')}}</small>
+          </div>
+          <div class="col-sm-4">
+            <img src="{{ url_for('static', filename='img/profile_pics/'+post.author.image_file) }}">
+          </div>
         </div>
       {% endfor %}
     {% else %}
