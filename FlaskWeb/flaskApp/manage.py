@@ -1,8 +1,9 @@
-from app import db, create_app
+from app import db
+from run import app
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app('dev')
+
 with app.app_context():
     if db.engine.url.drivername == 'sqlite':
         migrate = Migrate(app, db, render_as_batch=True)

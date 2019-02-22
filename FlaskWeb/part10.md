@@ -14,20 +14,34 @@ SQLALCHEMY_DATABASE_URI = f'sqlite:////{os.path.join(os.getcwd(),"flaskapp.db")}
 
 After this, delete the old database file, hopefully you don't have anything too important there.
 
-2. In your `run.py`, first let's change the name of the script to `manage.py`. Open the terminal or command prompt, and install two new extensions:
+2. In your `run.py`, modify it like this
+
+```python
+from app import create_app
+
+app = create_app('dev')
+
+if __name__ == '__main__':
+    app.run()
+
+
+```
+
+. Open the terminal or command prompt, and install two new extensions:
 
 - `pip install flask-migrate`
 
 - `pip install flask-script`
 
-Then in `manage.py`, let's adjust the content
+Then create `manage.py`, let's adjust the content
 
 ```python
-from app import db, create_app
+from app import db
+from run import app
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app('dev')
+
 with app.app_context():
     if db.engine.url.drivername == 'sqlite':
         migrate = Migrate(app, db, render_as_batch=True)
