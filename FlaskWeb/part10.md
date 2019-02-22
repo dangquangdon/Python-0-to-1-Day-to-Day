@@ -9,7 +9,6 @@ In this part, we will implement some small changes and add data migrations.
 1. in `config/dev.py` let's adjust the location of our database `flaskapp.db`, by changing the environment variable:
 
 ```python
-basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = f'sqlite:////{os.path.join(os.getcwd(),"flaskapp.db")}'
 ```
 
