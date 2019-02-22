@@ -1,4 +1,4 @@
-from run import db
+from manage import db
 from datetime import datetime
 from app.posts.models import Post
 from app import login_manager

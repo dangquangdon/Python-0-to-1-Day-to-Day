@@ -6,7 +6,7 @@ import os
 
 DEBUG = True
 SECRET_KEY = os.environ.get('SECRET_KEY')
-SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskapp.db'
+SQLALCHEMY_DATABASE_URI = f'sqlite:////{os.path.join(os.getcwd(),"flaskapp.db")}'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 MAIL_SERVER = 'smtp.gmail.com'
