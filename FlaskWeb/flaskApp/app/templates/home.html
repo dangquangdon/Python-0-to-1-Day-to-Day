@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="container">
+    {% if posts %}
+      {% for post in posts.items %}
+        <div class="row box p-3 bg-primary my-2 text-white">
+          <div class="col-sm-8">
+            <h1><a href="{{url_for('posts.single_post', post_id=post.id)}}" class="text-white">
+              {{ post.title }}
+            </a>
+            </h1>
+            <h3>{{post.subtitle}}</h3>
+            <a href="{{url_for('auth.user_posts', username=post.author.username)}}" class="text-white">
+              {{ post.author.username }}
+            </a>
+            <br>
+            <small>{{post.date_posted.strftime('%Y-%m-%d')}}</small>
+          </div>
+          <div class="col-sm-4">
+            <img src="{{ url_for('static', filename='img/profile_pics/'+post.author.image_file) }}">
+          </div>
+        </div>
+      {% endfor %}
+      <!-- PAGINATION -->
+      {% for page in posts.iter_pages() %}
+        {% if page %}
+          <a href="{{url_for('posts.home', page=page)}}" class="btn btn-outline-primary">{{page}}</a>
+        {% else %}
+          ...
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No posts</p>
+    {% endif %}
+  </div>
+{% endblock content %}
