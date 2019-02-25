@@ -197,6 +197,7 @@ If in the `dev.py` we set the Environment Variables to store our credentials, in
 
 - In your VM terminal, let's create a new file called `config.json` with the following command:
   - `sudo touch /etc/config.json`
+  - `sudo nano /etc/config.json`
   - in the `config.json` you are going to write a `json` file like this:
     ```json
     {
