@@ -4,7 +4,13 @@ Please complete these challenges below. Write separate scripts for each challeng
 
 If you want to test your result, feel free to write an unit test script of your own, or you can just simply test it manually by using another argument for your function.
 
-To submit this:
+**To asnwer:**
+
+- Copy the Starter Code to your script and write your answer to the are that said #YOUR CODE GOES HERE.
+
+- Feel free to alter the `return` accodingly as well as deleting the `pass`
+
+**To submit this:**
 
 - Create a github repo in your own github account, and push all of the scripts there.
 
@@ -16,12 +22,13 @@ A _palindrome_ is a word that reads the same backward or forward.
 
 Write a function that checks if a given word is a palindrome. Character case should be ignored.
 
-For example, is_palindrome("Deleveled") should return True as character case should be ignored, resulting in "deleveled", which is a palindrome since it reads the same backward and forward.
+For example, `is_palindrome("Deleveled")` should return True as character case should be ignored, resulting in "deleveled", which is a palindrome since it reads the same backward and forward.
 
 **Starter Code**
 
 ```python
 def is_palindrome(word):
+    # YOUR CODE GOES HERE
     return None
 
 print(is_palindrome('Deleveled'))
@@ -33,12 +40,18 @@ print(is_palindrome('Deleveled'))
 
 Implement the unique_names method. When passed two arrays of names, it will return an array containing the names that appear in either or both arrays. The returned array should have no duplicates.
 
-For example, calling unique_names(['Ava', 'Emma', 'Olivia'], ['Olivia', 'Sophia', 'Emma']) should return an array containing Ava, Emma, Olivia, and Sophia in any order.
+For example, calling
+
+`unique_names(['Ava', 'Emma', 'Olivia'], ['Olivia', 'Sophia', 'Emma'])`
+
+should return an array containing Ava, Emma, Olivia, and Sophia in any order.
 
 **Starter Code**
 
 ```python
 def unique_names(names1, names2):
+    # YOUR CODE GOES HERE
+
     return None
 
 names1 = ["Ava", "Emma", "Olivia"]
@@ -51,7 +64,13 @@ print(unique_names(names1, names2))
 
 Implement the IceCreamMachine's scoops method so that it returns all combinations of one ingredient and one topping. If there are no ingredients or toppings, the method should return an empty list.
 
-For example, IceCreamMachine(["vanilla", "chocolate"], ["chocolate sauce"]).scoops() should return [['vanilla', 'chocolate sauce'], ['chocolate', 'chocolate sauce']].
+For example,
+
+`IceCreamMachine(["vanilla", "chocolate"], ["chocolate sauce"]).scoops()`
+
+should return
+
+`[['vanilla', 'chocolate sauce'], ['chocolate', 'chocolate sauce']]`.
 
 **Starter Code**
 
@@ -63,6 +82,8 @@ class IceCreamMachine:
         self.toppings = toppings
 
     def scoops(self):
+        # YOUR CODE GOES HERE
+
         pass
 
 machine = IceCreamMachine(["vanilla", "chocolate"], ["chocolate sauce"])
@@ -92,6 +113,7 @@ For example, pipeline(lambda x: x \* 3, lambda x: x + 1, lambda x: x / 2) then c
 ```python
 def pipeline(*funcs):
     def helper(arg):
+        # YOUR CODE GOES HERE
         pass
     return helper
 
@@ -132,6 +154,8 @@ the group_by_owners function should return
 
 ```python
 def group_by_owners(files):
+    # YOUR CODE GOES HERE
+
     return None
 
 files = {
@@ -179,6 +203,8 @@ class Song:
         """
         :returns: (bool) True if the playlist is repeating, False if not.
         """
+         # YOUR CODE GOES HERE
+
         return None
 
 first = Song("Hello")
